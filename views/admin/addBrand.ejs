@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Add Category Page</title>
+    <link href="roducthttps://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Italianno' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/admin/productpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+</head>
+<%- include('../partials/adminoffcanvas') %>
+
+
+    <!-- Offcanvas menu -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2  d-flex ">
+                <div class="container-fluid py-5 t">
+
+                    <div class="admin-dashboard rounded" style="width: 220px;" id="">
+
+                        <div class="offcanvas-body p-0 px-md-4  ">
+                            <ul class="list-group custom-list ">
+                                <a href="/admin/admin-dashboard" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-house me-2"></i>
+                                    <span class="fw-bold">Dashboard</span>
+                                </a>
+                                <a href="/admin/product" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-bag-shopping me-2"></i>
+                                    <span class="fw-bold">Products</span>
+                                </a>
+                                <a href="/admin/admin-OrderList" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-cart-shopping me-2"></i>
+                                    <span class="fw-bold">Orders</span>
+                                </a>
+                                <a href="/admin/userslist" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-users me-2"></i>
+                                    <span class="fw-bold">Customers</span>
+                                </a>
+                                <a href="/admin/adminCoupon" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-id-card me-2"></i>
+                                    <span class="fw-bold">Coupons</span>
+                                </a>
+                                <!-- <a href="/admin/banners" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-flag me-2"></i>
+                                    <span class="fw-bold">Banners</span>
+                                </a> -->
+                                <a href="/admin/brandpage" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    <span class="fw-bold">Brands</span>
+                                </a>
+
+                                <a href="/admin/category" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-list me-2"></i>
+                                    <span class="fw-bold">Categories</span>
+                                </a>
+                                <!-- <a href="/admin/payments" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-money-bill me-2"></i>
+                                    <span class="fw-bold">Payments</span>
+                                </a> -->
+                                <a href="/admin/offers" class="list-group-item custom-list-item bg-light">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span class="fw-bold">Offers</span>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-10  d-flex justify-content-center  py-5 ">
+                <div class="container-fluid p-2 border bg-light  rounded-2">
+                    <div class="row justify-content-center align-items-center mt-5">
+                        <div class="col-md-8">
+                            <div class="card-body border shadow-lg rounded mb-3">
+                                <h3 class="card-title pt-2" >ADD BRAND</h3 > 
+                                  
+                              
+                                    <!-- <div class="alert alert-dark " style="height: 35px; ">
+                                       
+                                    </div>
+                              -->
+                                <form action="/admin/addBrand" method="post" class="icons p-3">
+                                    <div class="py-2">
+                                        <label for="brandname">Brand Name:</label>
+                                        <input type="text" name="Name" class="form-control" id="brandName"
+                                            placeholder="Enter Brand name" required />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3">Add Brand</button>
+        
+                                    <!-- Cancel button linking back to the brand page -->
+                                    <a href="/admin/category" class="btn btn-danger mt-3">Cancel</a>
+                                </form>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+
+            
+        </div>
+    </div>
+
+
+
+
+
+        
+   
+
+
+
+    <!-- Bootstrap JavaScript (place at the end of the body) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('staticBackdrop'));
+    </script>
+    </body>
+
+</html>

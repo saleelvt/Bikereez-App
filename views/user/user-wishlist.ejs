@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKEREEZ</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<body>
+   
+     <!--header-->
+     <%- include('../partials/userHeader') %>
+
+
+
+   
+<!-- Include Wishlist Content -->
+<section style="min-height:71.7vh;">
+    <div class="container-fluid mt-4">
+        <% if (messages.success) { %>
+            <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="m-0"><strong>Message.! </strong><%= messages.success %></p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        <% }else if (messages.error){ %>
+            <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p class="m-0"><strong>Message.! </strong><%= messages.error %></p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        <%}%> 
+        
+        <script>
+            setTimeout(function () {
+                document.getElementById('msg-div').style.display = 'none';
+            }, 2000);
+        </script>
+       
+        <!-- Wishlist Content Goes Here -->
+        <% if (wishlist.length === 0) { %>
+        <p class=" fw-bold">Your wishlist is empty.</p>
+        <a href="/homepage" class=" fw-bold text-decoration-none">Go To Shop</a>
+        <% } else { %>
+        <table class="table table-light border border-radius rounded-2 shadow-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let total = 0; %>
+                <% wishlist.forEach(item => { %>
+                <tr>
+                    <td class="align-middle">
+                        <div class="d-flex align-items-center">
+                            <% if (item && item.productId && item.productId.images && item.productId.images.length > 0) { %>
+                            <!-- Display the first image -->
+                            <img src="/uploads/<%= item.productId.images[0] %>" alt="<%= item.productId.ProductName %>"
+                                class="img-fluid" style="max-width: 100px;">
+                            <% } %>
+                        </div>
+                    </td>
+                    <td class="align-middle"><%= item.productId.ProductName %></td>
+                    <td class="align-middle">₹<%= item.productId.DiscountAmount %></td>
+                    <td class="align-right">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="py-4"><button class="btn btn-outline-dark me-3"
+                                onclick="addToCart('<%= item.productId._id %>')">Add to Cart</button>
+                            
+                                <a href="/removefromWishlist/<%= item.productId._id %>"
+                                    class="btn btn-outline-dark me-3">Remove</a></div>
+                            
+                           
+                        </div>
+                    </td>
+                </tr>
+                <% total += item.productId.DiscountAmount; %>
+                <% }) %>
+                <tr>
+                    <td colspan="2" class="text-end align-middle">Total Price:</td>
+                    <td colspan="2" class="align-middle">
+                        <%= total.toLocaleString('en-IN', { style: 'currency', currency: 'INR' }) %></td>
+                </tr>
+            </tbody>
+        </table>
+        <% } %>
+    </div>
+    </section>
+    
+
+
+
+
+    <!--footer-->
+
+    <%- include('../partials/userFooterOffcanavas') %>
+
+    <script src="/js/wishlist.js"></script>
+
+    <script>
+        function addToCart(productId) {
+            $.ajax({
+                url: `/addToCart/${productId}`,
+                method: 'get',
+                success: function (Response) {
+                    if (Response.success) {
+
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'Item Added',
+                        showConfirmButton: false,
+                        timer: 1500
+
+                    });
+                    }
+                    else {
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Stock not available at the moment',
+                    });
+                    }
+                }
+            })
+        }
+    </script>
+
+ 
+
+</body>
+
+</html>

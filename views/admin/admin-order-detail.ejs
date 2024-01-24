@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>adminOrderDetailVeiw</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Italianno' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/admin/productpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+</head>
+<%- include('../partials/adminoffcanvas') %>
+
+
+    <!-- Offcanvas menu -->
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row">
+            <!-- <div class="col-lg-8  d-flex ">
+                <div class="container-fluid py-5 t">
+
+                    <div class="admin-dashboard rounded" style="width: 220px;" id="">
+
+                        <div class="offcanvas-body p-0 px-md-4   ">
+                            <ul class="list-group custom-list fw-bold ">
+                                <a href="/admin/admin-dashboard" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-house me-2 "></i>
+                                    <span class="fw-bold">Dashboard</span>
+                                </a>
+                                <a href="/admin/product" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-bag-shopping me-2"></i>
+                                    <span class="fw-bold">Products</span>
+                                </a>
+                                <a href="/admin/admin-OrderList" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-cart-shopping me-2"></i>
+                                    <span class="fw-bold">Orders</span>
+                                </a>
+                                <a href="/admin/userslist" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-users me-2"></i>
+                                    <span class="fw-bold">Customers</span>
+                                </a>
+                                <a href="/admin/adminCoupon" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-id-card me-2"></i>
+                                    <span class="fw-bold">Coupons</span>
+                                </a>
+                                <a href="/admin/banners" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-flag me-2"></i>
+                                    <span class="fw-bold">Banners</span>
+                                </a>
+                                <a href="/admin/brandpage" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    <span class="fw-bold">Brands</span>
+                                </a>
+
+                                <a href="/admin/category" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-list me-2"></i>
+                                    <span class="fw-bold">Categories</span>
+                                </a>
+                                <a href="/admin/payments" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-money-bill me-2"></i>
+                                    <span class="fw-bold">Payments</span>
+                                </a>
+                                <a href="/admin/offers" class="list-group-item custom-list-item bg-light">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span class="fw-bold">Offers</span>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+
+
+
+            <div class=" m-auto bg-white rounded shadow-sm p-3">
+                <h3 class="fw-bold text-center">Order</h3>
+                <hr>
+                <div class="p-3 shadow-sm d-flex justify-content-center align-items-center">
+
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Customer & Address</th>
+                            <td>
+                                <strong>
+                                    <%=newOrders.address.Name%>
+                                </strong>
+                                <br>
+                                <%=newOrders.address.AddressLane %> <br>
+                                    <%=newOrders.address.City %> <br>
+                                        <%=newOrders.address.State%> - <%=newOrders.address.Pincode%>
+                                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Mobile</th>
+                            <td>
+                                <%=newOrders.address.Mobile%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Order ID</th>
+                            <td>ORD_<%=newOrders._id %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Order Date</th>
+                            <td>
+                                <%=new Date(newOrders.orderDate).toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle;">Products</th>
+                            <td>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th style="text-align: center; vertical-align: middle;">Price</th>
+                                        <th style="text-align: center; vertical-align: middle;"> After Discount</th>
+                                        <th style="text-align: center; vertical-align: middle;"> Discount Price</th>
+                                        <th style="text-align: center; vertical-align: middle;"> Quantity</th>
+                                        <th style="text-align: center; vertical-align: middle;">Image</th>
+                                    </tr>
+                                    <% newOrders.items.forEach((x)=> { %>
+                                        <tr>
+                                            <td style="vertical-align: middle;">
+                                                <%=x.productId.ProductName %>
+                                            </td>
+                                            <td style="vertical-align: middle;">
+                                                <%=x.productId.Price %>
+                                            </td>
+                                            <td style="vertical-align: middle;">
+                                                <%=x.productId.DiscountAmount %>
+                                            </td>
+                                            <td style="vertical-align: middle;">
+                                                <%= x.productId.Price-x.productId.DiscountAmount  %>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <%=x.quantity%>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;"><img
+                                                    src="/uploads/<%=x.productId.images[0]%>" alt=""
+                                                    style="width: auto; height: 70px;"></td>
+                                        </tr>
+
+                                        <% }) %>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Total Quantity</th>
+                            <td>
+                                <%=newOrders.totalQuantity%> Nos.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Grand Total</th>
+                            <td>Rs <%=newOrders.totalAmount%>/-</td>
+                        </tr>
+                        <tr>
+                            <th>Payment Method</th>
+                            <td>
+                                <%=newOrders.paymentMethod %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Payment Status</th>
+                            <td>
+                                <% if (newOrders.paymentStatus==="Paid" ) { %>
+                                    <p class="fw-bold text-success">Paid</p>
+                                    <% } else if (newOrders.paymentStatus==='Refund' ) { %>
+                                        <p class="fw-bold text-danger">Refund</p>
+                                        <% } else {%>
+                                            <p class="fw-bold text-danger">Pending</p>
+
+                                            <%}%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Order Status</th>
+                            <td>
+                                <% if (newOrders.status==="Shipped" ) { %>
+                                    <p class="fw-bold text-danger">
+                                        <%= newOrders.status %>
+                                    </p>
+
+                                    <% }else if(newOrders.status==="Delivered" ){ %>
+                                        <% if (newOrders.returnStatus==='reject' ) { %>
+                                            <p class="fw-bold text-success">
+                                                <%= newOrders.status %>, Rejected return.
+                                            </p>
+                                            <% } else { %>
+                                                <p class="fw-bold text-success">
+                                                    <%= newOrders.status %>
+                                                </p>
+                                                <% } %>
+                                                    <%} else if(newOrders.status==="Order Placed" ){%>
+                                                        <p class="fw-bold text-danger">
+                                                            <%= newOrders.status %>
+                                                        </p>
+                                                        <%} else {%>
+                                                            <p class="fw-bold text-danger">
+                                                                <%= newOrders.status %>
+                                                            </p>
+                                                            <%}%>
+
+                            </td>
+                        </tr>
+                        <% if (newOrders.status==="Return Pending" || newOrders.status==="Returned" ||
+                            (newOrders.status==="Delivered" && newOrders.returnStatus==="reject" )) { %>
+                            <tr>
+                                <th>Return Date</th>
+                                <td>
+                                    <%=new Date(newOrders.returnDate).toLocaleString('en-US', { timeZone: 'Asia/Kolkata'
+                                        }) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Return Reason</th>
+                                <td>
+                                    <%=newOrders.userReason %>
+                                </td>
+                            </tr>
+
+                            <% } %>
+
+                                <% if (newOrders.returnStatus==="reject" ) { %>
+                                    <tr>
+                                        <th>Reject Date</th>
+                                        <td>
+                                            <%=new Date(newOrders.rejectedDate).toLocaleString('en-US', {
+                                                timeZone: 'Asia/Kolkata' }) %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Rejection Reason</th>
+                                        <td>
+                                            <%=newOrders.adminReason%>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% if (newOrders.returnStatus==="accept" ) { %>
+                                            <tr>
+                                                <th>Approved Date</th>
+                                                <td>
+                                                    <%= newOrders.approvedDate %>
+                                                </td>
+                                            </tr>
+
+                                            <% } %>
+
+
+                                                <% if (newOrders.status!="Returned" && newOrders.status!="Delivered" &&
+                                                    newOrders.status!="Return Pending" ) { %>
+                                                    <form method="post" action="#">
+                                                        <tr>
+                                                            <th>
+                                                                <input type="hidden" value="{{ orders.id }}" name="id">
+                                                                <select name="status" class="form-select" required
+                                                                    id="sts">
+                                                                    <% if (newOrders.status=="Order Placed" ) { %>
+                                                                        <option value="<%=newOrders.status %>" selected
+                                                                            disabled>
+                                                                            <%=newOrders.status %>
+                                                                        </option>
+                                                                        <option value="Shipped">Shipped</option>
+                                                                        <option value="Delivered">Delivered
+                                                                        </option>
+                                                                        <option value="Return">Return</option>
+                                                                        <% } else if(newOrders.status=="Shipped" ) { %>
+                                                                            <option value="<%=newOrders.status %>"
+                                                                                selected disabled>
+                                                                                <%=newOrders.status %>
+                                                                            </option>
+                                                                            <option value="Delivered">Delivered
+                                                                            </option>
+                                                                            <option value="Return">Return
+                                                                            </option>
+                                                                            <%}%>
+                                                                </select>
+                                                            </th>
+                                                            <td><input type="submit" value="Update"
+                                                                    class="btn btn-outline-dark"></td>
+                                                        </tr>
+                                                    </form>
+
+                                                    <% } else if (newOrders.status=="Return Pending" ) { %>
+
+                                                        <form method="post" action="#">
+                                                            <tr id="reason-row" style="display: none;">
+                                                                <td>
+                                                                    <textarea name="reason" id="reason"
+                                                                        class="form-control"
+                                                                        placeholder="Reason for rejection"
+                                                                        required></textarea>
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
+                                                                    <input type="hidden" value="{{ orders.id }}"
+                                                                        name="id">
+                                                                    <select name="status" class="form-select" required
+                                                                        id="sts" oninput="return rejection()">
+                                                                        <option value="<%=newOrders.status %>" selected
+                                                                            disabled>
+                                                                            <%=newOrders.status %>
+                                                                        </option>
+                                                                        <option value="accept">Accept</option>
+                                                                        <option value="reject">Reject</option>
+                                                                    </select>
+                                                                </th>
+                                                                <td><input type="submit" value="Update"
+                                                                        class="btn btn-outline-dark"></td>
+                                                            </tr>
+                                                        </form>
+                                                        <% } else if (newOrders.status=="Delivered" ) { %>
+                                                            <tr>
+                                                                <td colspan="2" class="fw-bold text-success">
+                                                                    Product
+                                                                    Delivered successfully</td>
+                                                            </tr>
+                                                            <% } else {%>
+                                                                <tr>
+                                                                    <td colspan="2" class="fw-bold text-danger">
+                                                                        Product
+                                                                        returned
+                                                                        successfully</td>
+                                                                </tr>
+                                                                <%}%>
+                    </table>
+                    <% if (newOrders.length> 0) { %>
+                        <div class="d-flex justify-content-between m-auto w-50 align-items-center mt-3">
+                            <p>Showing <%= (currentPage - 1) * perPage + 1 %>-
+                                    <% if(currentPage===totalPages){%>
+                                        <%=totalCount%>
+                                            <%}else{%>
+                                                <%= currentPage * perPage %>
+                                                    <%}%>
+                                                        results from <%= totalCount %>
+                            </p>
+                            <ul class="pagination">
+                                <% for (let i=1; i <=totalPages; i++) { %>
+                                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                        <a class="page-link" href="?page=<%= i %>">
+                                            <%= i %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+                            </ul>
+                        </div>
+                        <% } %>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        document.getElementById('sts').addEventListener('change', function () {
+            var reasonRow = document.getElementById('reason-row');
+            var reasonInput = document.getElementById('reason');
+            var status = this.value; // 'this' refers to the select element
+
+            if (status !== "reject") {
+                reasonRow.style.display = 'none';
+            } else {
+                reasonRow.style.display = 'table-row';
+            }
+        });
+    </script>
+
+
+    <script>
+        function rejection() {
+            var reasonRow = document.getElementById('reason-row');
+            var reasonInput = document.getElementById('reason');
+            var status = document.getElementById('sts').value;
+            console.log(status)
+
+            if (status == "accept") {
+                reasonRow.style.display = 'table-row';
+                reasonInput.innerHTML = "Return Accepted"
+                reasonInput.setAttribute('readonly', 'true');
+            } else {
+                reasonRow.style.display = 'table-row';
+                reasonInput.removeAttribute('readonly');
+            }
+            return true
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- Bootstrap JavaScript (place at the end of the body) 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+        <script>
+            var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('staticBackdrop'));
+        </script>
+
+
+        
+        </body>
+
+</html>

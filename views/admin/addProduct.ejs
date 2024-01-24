@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Add Product Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Italianno' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/admin/productpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+</head>
+<%- include('../partials/adminoffcanvas') %>
+
+
+    <!-- Offcanvas menu -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2  d-flex ">
+                <div class="container-fluid py-5 t">
+
+                    <div class="admin-dashboard rounded" style="width: 220px;" id="">
+
+                        <div class="offcanvas-body p-0 px-md-4  ">
+                            <ul class="list-group custom-list ">
+                                <a href="/admin/admin-dashboard" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-house me-2"></i>
+                                    <span class="fw-bold">Dashboard</span>
+                                </a>
+                                <a href="/admin/product" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-bag-shopping me-2"></i>
+                                    <span class="fw-bold">Products</span>
+                                </a>
+                                <a href="/admin/admin-OrderList" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-cart-shopping me-2"></i>
+                                    <span class="fw-bold">Orders</span>
+                                </a>
+                                <a href="/admin/userslist" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-users me-2"></i>
+                                    <span class="fw-bold">Customers</span>
+                                </a>
+                                <a href="/admin/adminCoupon" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-id-card me-2"></i>
+                                    <span class="fw-bold">Coupons</span>
+                                </a>
+                                <!-- <a href="/admin/banners" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-flag me-2"></i>
+                                    <span class="fw-bold">Banners</span>
+                                </a> -->
+                                <a href="/admin/brandpage" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    <span class="fw-bold">Brands</span>
+                                </a>
+
+                                <a href="/admin/category" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-list me-2"></i>
+                                    <span class="fw-bold">Categories</span>
+                                </a>
+                                <!-- <a href="/admin/payments" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-money-bill me-2"></i>
+                                    <span class="fw-bold">Payments</span>
+                                </a> -->
+                                <a href="/admin/offers" class="list-group-item custom-list-item bg-light">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span class="fw-bold">Offers</span>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-10  d-flex justify-content-center  py-5 ">
+                <div class="container-fluid p-2 border bg-light  rounded-2">
+                    <div class="row ">
+                        <main class="px-md-4 icons">
+                            <div class="row d-flex justify-content-between">
+                                <div class="col-md-8">
+                                    <h1 class="mt-2 text-white">Add Product</h1>
+    
+                                    <form action="/admin/addProduct" method="post" enctype="multipart/form-data"
+                                        class="card p-3 bg-light mb-3 text-dark text-shadow">
+                                        <% if (messages.success) { %>
+                                            <div class="alert alert-success">
+                                                <%= messages.success %>
+                                            </div>
+                                            <% }else if (messages.error){ %>
+                                                <div class="alert alert-danger">
+                                                    <%= messages.error %>
+                                                </div>
+                                                <%}%>
+    
+                                                    <div class="form-group">
+                                                        <label for="productName">Product Name:</label>
+                                                        <input type="text" name="ProductName" oninput="validateProductName()" class="form-control bg-light"
+                                                            id="name" placeholder="Enter product name" required />
+                                                            <p id="nameError" class="text-danger"></p>
+                                                    </div><br>
+    
+                                                    <div class="form-group">
+                                                        <label for="productDescription">Product Description:</label>
+                                                        <textarea class="form-control bg-light" name="Description"
+                                                            id="productDescription" rows="4"
+                                                            placeholder="Enter product description" required></textarea>
+                                                            <p id="nameError" class="text-danger"></p>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <label for="productSpecification">Product Specification:</label>
+                                                        <textarea class="form-control bg-light" name="Specification1"
+                                                            id="productSpecification1"
+                                                            placeholder="Enter product Specification" required></textarea>
+                                                            <p id="nameError" class="text-danger"></p>
+                                                    </div>
+                                                    <br>
+    
+                                                    <div class="bg-light">
+                                                        <h3>Media</h3>
+    
+    
+                                                        <div class="form-group my-2">
+                                                            <label for="image1">Image 1:</label>
+                                                            <input type="file" name="image1" class="form-control imageInput"
+                                                                id="imageInput" accept="image/*" />
+                                                            <img src="" alt="Image 1" class="img-fluid imagePreview"
+                                                                style="max-height: 50px;width: auto; display: none;">
+                                                        </div>
+    
+    
+                                                        <div class="form-group my-2">
+                                                            <label for="image2">Image 2:</label>
+                                                            <input type="file" name="image2" class="form-control imageInput"
+                                                                id="image2" accept="image/*" />
+                                                            <img src="" alt="Image 2" class="img-fluid imagePreview"
+                                                                style="max-height: 50px;width: auto; display: none;"
+                                                                id="previewImage2">
+                                                        </div>
+    
+    
+                                                        <div class="form-group my-2">
+                                                            <label for="image3">Image 3:</label>
+                                                            <input type="file" name="image3" class="form-control imageInput"
+                                                                id="image3" accept="image/*" />
+                                                            <img src="" alt="Image 3" class="img-fluid imagePreview"
+                                                                style="max-height: 50px;width: auto; display: none;"
+                                                                id="previewImage3">
+                                                        </div>
+                                                    </div>
+    
+    
+                                                    <div class="">
+                                                        <h2>Pricing</h2>
+                                                        <div class="form-group">
+                                                            <label for="basePrice">Base Price:</label>
+                                                            <input type="number" name="Price" class="form-control bg-light"
+                                                                id="basePrice" oninput="validateForm()" placeholder="Enter base price" required />
+                                                                <p id="priceCheck" class="text-danger"></p>
+                                                        </div>
+                                                        <br>
+                                                        <div class="form-group">
+                                                            <label for="discountAmount">Discount Amount:</label>
+                                                            <input type="number" name="DiscountAmount"
+                                                                class="form-control bg-light" id="discountAmount"  oninput="validateForm()"
+                                                                placeholder="Enter  After discount amount" required />
+                                                                <p id="discountCheck" class="text-danger"></p>
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="">
+                                                        <h2>Stock</h2>
+    
+                                                        <div class="form-group">
+                                                            <label for="quantity">Quantity:</label>
+                                                            <input type="number" name="AvailableQuantity"  oninput="validateForm()"
+                                                                class="form-control bg-light" id="quantity"
+                                                                placeholder="Enter quantity" required />
+                                                                <p id="quantityCheck" class="text-danger"></p>
+                                                        </div>
+                                                    </div>
+    
+    
+                                </div>
+    
+                                <div class="col-md-4 my-5 py-3">
+                                    <div class="bg-light text-light p-3 rounded border">
+                                        <div class="form-group">
+                                            <br>
+                                            <label for="category">Category:</label>
+                                            <select class="form-select bg-light" id="category" name="Category" required>
+                                                <option value="" selected disabled>Select a category</option>
+                                                <% Categories.forEach(function(category) { %>
+                                                    <option value="<%=category.Name%>">
+                                                        <%=category.Name%>
+                                                    </option>
+                                                    <% }); %>
+                                            </select>
+                                        </div><br>
+                                        <div class="form-group">
+                                            <br>
+                                            <label for="brandName">Brand Name:</label>
+                                            <select name="BrandName" class="form-select bg-light" id="brand" required>
+                                                <option value="" selected disabled>Select a Brand</option>
+                                                <% brands.forEach(function(brand) { %>
+                                                    <option value="<%=brand.Name%>">
+                                                        <%=brand.Name%>
+                                                    </option>
+                                                    <% }); %>
+                                            </select>
+                                        </div><br>
+                                  
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary mt-3 mb-0">Add Product</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+
+            </div>
+
+            
+        </div>
+    </div>
+
+
+
+
+
+        
+   
+
+    <script src="/js/productValidation.js"></script>
+
+    <!-- Bootstrap JavaScript (place at the end of the body) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('staticBackdrop'));
+    </script>
+    </body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+
+<body>
+    <!--header-->
+    <%- include('../partials/userHeader') %>
+
+        <main>
+
+
+            <div class="container-fluid rounded-2" style="min-height: 65vh;">
+                <div class="row p-1">
+                    <div class="col-md-8 p-3 shadow-sm">
+                        <h3 class="fw-bold text-shadow">Cart Page</h3>
+                        <hr>
+                        <% if (messages.success) { %>
+                            <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <p class="m-0"><strong>Message.! </strong>
+                                        <%= messages.success %>
+                                    </p>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <% }else if (messages.error){ %>
+                                <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <p class="m-0"><strong>Message.! </strong>
+                                            <%= messages.error %>
+                                        </p>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <%}%>
+
+                                    <script>
+                                        setTimeout(function () {
+                                            document.getElementById('msg-div').style.display = 'none';
+                                        }, 2000);
+                                    </script>
+                                    <div
+                                        class="bg-white rounded shadow-sm border d-flex justify-content-between align-items-left my-1">
+                                        <table class="table table-borderless m-0">
+                                            <% if (newCart && newCart.items.length> 0) { %>
+                                                <% newCart.items.forEach((x)=> { %>
+                                                    <tr class="border">
+                                                        <th class="text-center">
+                                                            <img src="/uploads/<%= x.productId.images[0]%>"
+                                                                alt="Product-image" class="img-fluid"
+                                                                style="height: 100px; width: auto;">
+                                                        </th>
+                                                        <th>
+                                                            <p class="fw-bold m-1">
+                                                                <%= x.productId.ProductName %>
+                                                            </p>
+                                                            <div class="d-flex  align-items-left p-2">
+                                                                <button class="btn btn-outline-dark p-1 px-3"
+                                                                    onclick="quantityChanger('<%= x.productId._id %>',-1,'<%=newCart._id%>')">-</button>
+                                                                <p class="fw-bold m-0 px-2 p-1"
+                                                                    id="quantity_<%= x.productId._id %>">
+                                                                    <%= x.quantity %>
+                                                                </p>
+                                                                <button class="btn btn-outline-dark me-3"
+                                                                    onclick="quantityChanger('<%= x.productId._id %>',1,'<%=newCart._id%>')">+</button>
+
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <p class="fw-bold text-secondary my-4">Rs <%= x.quantity *
+                                                                    x.productId.DiscountAmount %>
+                                                            </p>
+                                                        </th>
+                                                        <th><a href="/removeCartItems/<%= x.productId._id%>"><button
+                                                                    class="btn btn-outline-dark p-1 px-3 my-4 fw-bold"
+                                                                    onclick="return confirm('Are you Sure to Delete the Item')">Remove</button></a>
+                                                        </th>
+
+                                                    </tr>
+                                                    <% }) %>
+                                                        <% }else{ %>
+                                                            <tr>
+                                                                <th>
+                                                                    <h3
+                                                                        class="alert alert-danger w-50 m-auto my-5 text-center">
+                                                                        No Cart Found</h3>
+                                                                </th>
+                                                            </tr>
+                                                            <%}%>
+                                        </table>
+                                    </div>
+                    </div>
+                    <div class="col-md-4 p-3 rounded m-auto ">
+                        <div class="p-5 bg-white rounded-2 shadow-lg">
+                            <h4 class="fw-bold">SUMMARY</h4>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p class="text-secondary">Price</p>
+                                <p class="text-secondary fw-bold">Rs <%= total %>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="text-secondary">No of items</p>
+                                <p id="totalQuantity" class="text-secondary">
+                                    <%= totalQuantity %>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="text-secondary">Delivery Fee</p>
+                                <!-- <p class="text-secondary fw-bold">$ 0</p> -->
+                                <p class="text-secondary fw-bold">Free</p>
+                                <!-- <p class="text-secondary fw-bold">$ 250.00</p> -->
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p class="fw-bold">Total Amount</p>
+                                <p class="fw-bold">Rs <%= total %>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <% if (newCart && newCart.items.length> 0) { %>
+                                    <a href="/checkOut" class="btn btn-outline-dark btn-sm fw-bold">Checkout</a>
+                                    <% } %>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </main>
+
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!--footer-->
+
+        <%- include('../partials/userFooterOffcanavas') %>
+
+
+            <script>
+                function quantityChanger(productId, count, cartId) {
+
+                    var quantityElement = document.getElementById("quantity_" + productId);
+                    var totalQuantityElement = document.getElementById("totalQuantity");
+                    console.log('this is my total quansnf', totalQuantityElement);
+                    var currentQuantity = parseInt(quantityElement.innerText, 10)
+                    if (count === 1) {
+                        currentQuantity += 1;
+                        quantityElement.innerText = currentQuantity;
+                    } else if (count === -1 && currentQuantity > 1) {
+                        currentQuantity -= 1;
+                        quantityElement.innerText = currentQuantity;
+                    }
+                    $.ajax({
+                        url: '/updateQuantity',
+                        method: 'POST',
+                        data: {
+                            productId: productId,
+                            quantity: currentQuantity,
+                            carts: cartId,
+
+                        },
+                        success: function (Response) {
+                            if (Response.success) {
+
+                                // quantityElement.innerText = Response.quantity;
+                                totalQuantityElement.innerText = Response.totalQuantity;
+                                
+                                location.reload()
+
+                            } else {
+                              
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Stock not available at the moment',
+                                });
+                            }
+                        }
+                    })
+                }
+            </script>
+
+
+</body>
+
+</html>

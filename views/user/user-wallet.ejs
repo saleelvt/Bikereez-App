@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+
+<body>
+    <!--header-->
+    <%- include('../partials/userHeader') %>
+
+        <main>
+
+            <% if (messages.success) { %>
+                <div class="container my-3" style="border-radius: 20px;">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <p class="m-0"><strong>Message.! </strong>
+                            <%= messages.success %>
+                        </p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <% }else if (messages.error){ %>
+                    <div class="container my-3" style="border-radius: 20px;">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p class="m-0"><strong>Message.! </strong>
+                                <%= messages.error %>
+                            </p>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <%}%>
+
+                    
+
+                        <div class="container-fluid rounded-2" style="min-height: 65vh;">
+                            <div class="row p-1">
+                                <div class="col-10 m-auto bg-white rounded shadow-sm p-3 ">
+                                    <h3 class="fw-bold text-center">Wallet</h3>
+                                    <hr>
+                                    <div class="p-3 shadow-sm rounded-2">
+                                        <% if (newWallet.length>0) { %>
+
+                                            <table class="table table-striped">
+                                                <tr>
+                                                    <th>Sl No</th>
+                                                    <th>Transaction ID</th>
+                                                    <th class="text-center">Returned Date</th>
+                                                    <th class="text-right">Credit/Debit</th>
+                                                    <th class="text-right">Amount</th>
+                                                
+                                                </tr>
+
+
+                                                <% newWallet.forEach((x,index)=> { %>
+                                                    <tr>
+                                                        <th>
+                                                            <%=index+1 %>
+                                                        </th>
+                                                        <th>
+                                                            <p>
+                                                                <%=x.orders._id%>
+                                                            </p>
+                                                        </th>
+                                                        <% if (x.status==="Credit" ) { %>
+                                                            <th class="text-center">
+                                                                <p>
+                                                                    <%=new
+                                                                        Date(x.orders.returnDate).toLocaleString('en-US',
+                                                                        { timeZone: 'Asia/Kolkata' })%>
+                                                                </p>
+                                                            </th>
+                                                            <% }else{ %>
+                                                                <th class="text-center">
+                                                                    <p>
+                                                                        <%=new
+                                                                            Date(x.orders.orderDate).toLocaleString('en-US',
+                                                                            { timeZone: 'Asia/Kolkata' })%>
+                                                                    </p>
+                                                                </th>
+                                                                <%}%>
+                                                                    <% if (x.status==="Credit" ) { %>
+                                                                        <th class="text-right text-success">
+                                                                            <p>
+                                                                                <%=x.status%>
+                                                                            </p>
+                                                                        </th>
+                                                                        <% }else{ %>
+                                                                            <th class="text-right text-danger">
+                                                                                <p>
+                                                                                    <%=x.status%>
+                                                                                </p>
+                                                                            </th>
+                                                                            <%}%>
+                                                                                <% if (x.status==="Credit" ) { %>
+                                                                                    <th class="text-right text-success">
+                                                                                        <p>
+                                                                                            <%=x.totalAmount%>
+                                                                                        </p>
+                                                                                    </th>
+                                                                                    <% } else { %>
+                                                                                        <th
+                                                                                            class="text-right text-danger">
+                                                                                            <p>
+                                                                                                <%=x.totalAmount%>
+                                                                                            </p>
+                                                                                        </th>
+
+                                                                                        
+                                                                                        <%}%>
+
+                                                    </tr>
+
+                                                    
+                                                  
+
+                                                   
+
+                                                    <% }) %>
+
+                                                    
+                                                        <% }else if(reffAmount>0) { %>
+
+                                                            <!-- <table class="table table-striped">
+
+
+                                                                <tr>
+                                                                    <td colspan="3"></td>
+                                                                    <td class="text-left fw-bold fs-6">Referral Bonus
+                                                                    </td>
+                                                                    <td class="text-right fw-bold fs-5 text-success">
+                                                                        <%=reffAmount%>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                    <td colspan="3"></td>
+                                                                    <td class="text-right fw-bold ">Referral Amount
+                                                                    </td>
+                                                                    <td class="text-right fw-bold  text-success">
+                                                                        <%=reffAmount%>
+                                                                    </td>
+                                                                </tr>
+                                                            </table> -->
+
+                                                            <% }else { %>
+                                                                <h3
+                                                                    class="alert alert-danger w-50 m-auto my-5 text-center">
+                                                                    No wallet
+                                                                    information found</h3>
+                                                                <%}%>
+
+                                                                <div class="">
+                                                                    <th class="text-right fs-5 py-3  fw-bold text-dark">
+                                                                        <p> Total Referral Amount :
+                                                                            <%=reffAmount%>
+                                                                        </p>
+                                                                    </th>
+                                                                    <th class="text-right fs-3 fw-bold text-dark">
+                                                                        <p> Grand Total :
+                                                                            <%=walletTotal%>
+                                                                        </p>
+                                                                    </th>
+                                                                </div>
+                                    </div>
+                                  
+                                </div>
+
+                            </div>
+                            
+                        </div>
+
+
+
+        </main>
+      
+
+
+
+
+
+
+</body>
+
+</html>

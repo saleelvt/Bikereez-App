@@ -1,0 +1,59 @@
+<header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class=" shadow-sm">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm border rounded-2 ">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                            <a class="navbar-brand fs-2" href="#"
+                                style="font-style: italic; text-shadow: 0px 0px 4px black; ">BIKEREEZ</a>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                                <li class="nav-item px-2">
+                                    <a class="nav-link active text-black" aria-current="page" href="/homepage"> <i
+                                            class="fas fa-solid text-black fa-house fa-lg"></i> </a>
+                                </li>
+                                <li class="nav-item px-2">
+                                    <a class="nav-link active " aria-current="page" href="/wishlist"> <i
+                                            class="fa-solid fa-heart fa-lg mt-2"></i><sup class="bg-dark text-white px-1 rounded-pill"><%=user?user.Wishlist.length:0%></sup></a>
+                                </li>
+                                <li class="nav-item px-2 ">
+
+                                    <a class="nav-link active " aria-current="page" href="/cartPage"> <i
+                                            class="fa-solid fa-cart-shopping  fa-lg"></i><sup class="bg-dark text-white  px-1 rounded-pill"><%=carts?carts.items.length:0%></sup> </a>
+
+                                </li>
+                                <li class="nav-item px-2 ">
+                                    <a class="nav-link active " aria-current="page" href="/userAddress"> <i
+                                            class="fa-solid fa-address-book fa-lg"></i> </a>
+                                </li>
+                                <li class="nav-item px-2 ">
+                                    <a class="nav-link active " aria-current="page" href="/orderList"> <i
+                                            class="fa-solid fa-list fa-lg"></i> </a>
+                                </li>
+                                <li class="nav-item px-2 ">
+                                    <a class="nav-link active " aria-current="page" href="/userWallet"> <i
+                                            class="fa-solid fa-wallet fa-lg "></i></a>
+                                </li>
+                            </ul>
+
+                            <form class="d-flex" role="search" action="/search" method="GET">
+                                <input class="form-control me-2" type="search" name="searchNames" placeholder="Search" aria-label="Search">
+                                <button class="btn  btn-outline-dark btn-sm " type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <a class="btn btn-dark btn-sm ms-3" href="/userlogout">Logout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</header>

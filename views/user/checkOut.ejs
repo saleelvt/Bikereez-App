@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+
+<body>
+    <!--header-->
+    <%- include('../partials/userHeader') %>
+
+        <main>
+            <div class="container-fluid">
+                <div class="row p-1 shadow-lg">
+                    <div class="col-md-8 p-3 shadow-sm">
+                        <form method="post" action="/checkOut">
+                            <h3 class="fw-bold text-secondary">Checkout Page</h3>
+                            <hr>
+                            <% if (messages.success) { %>
+                                <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <p class="m-0"><strong>Message.! </strong>
+                                            <%= messages.success %>
+                                        </p>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <% }else if (messages.error){ %>
+                                    <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <p class="m-0"><strong>Message.! </strong>
+                                                <%= messages.error %>
+                                            </p>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <%}%>
+
+
+
+
+
+                                        <script>
+                                            setTimeout(function () {
+                                                document.getElementById('msg-div').style.display = 'none';
+                                            }, 2000);
+                                        </script>
+                                        <div class="row">
+                                            <div class="col-12 my-2">
+                                                <div class="p-3 bg-white rounded shadow-sm">
+                                                    <h4 class="fw-bold">Shipping Information</h4>
+                                                    <hr>
+                                                    <div class="row p-2">
+                                                        <div class="form-group">
+                                                            <select name="address" class="form-select py-2">
+                                                                <option class="text-primary" selected disabled>Select
+                                                                    the
+                                                                    shipping address</option>
+                                                                <% address.forEach((x)=> { %>
+                                                                    <option value="<%= x._id %>">
+                                                                        <%=x.Name %>,<%= x.AddressLane %>,<%= x.City %>
+                                                                                    ,<%= x.State %>-<%= x.Pincode %>,<%=
+                                                                                                x.Mobile %>
+
+
+                                                                    </option>
+                                                                    <% }) %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <a href="/userAddress" class="btn btn-dark btn-sm">Add
+                                                            Address</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <div class="p-3 bg-white rounded shadow-sm">
+                                                    <h4 class="fw-bold">Payment Information</h4>
+                                                    <hr>
+                                                    <div class="row p-2">
+                                                        <div class="form-group">
+                                                            <select name="payment" class="form-select py-2">
+                                                                <option class="text-primary" selected disabled>Select
+                                                                    the
+                                                                    Payment Method</option>
+                                                                <option value="COD">Cash On Delivery</option>
+                                                                <option value="onlinePayment">Online Payment</option>
+                                                                <option value="walletPayment">Wallet Payment</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <p class="text-secondary"><span class="fw-bold fs-4">Cash on delivery</span></p>  -->
+                                                    <div class="d-flex justify-content-end">
+                                                        <input type="submit" class="btn btn-dark btn-sm"
+                                                            id="confirmCheckoutBtn" value="Confirm Checkout">
+                                                        <button type="button" class="btn btn-dark btn-sm"
+                                                            id="onlinePaymentBtn" style="display: none;">Online
+                                                            Payment</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        </form>
+                    </div>
+
+
+                    <div class="col-md-4 p-3">
+                        <div class="p-5 bg-white rounded shadow-lg">
+                            <h4 class="fw-bold">SUMMARY</h4>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p class="text-secondary">Total Amount</p>
+                                <p class="text-secondary fw-bold">Rs <%= total %>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="text-secondary">Total Items</p>
+                                <p class="text-secondary fw-bold">
+                                    <%= quantity %>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="text-secondary">Delivery Fee</p>
+                                <p class="text-secondary fw-bold">Free</p>
+                            </div>
+                            <p class="text-dark small" id="coupon-text" style="cursor: pointer;">Have a Coupon ?</p>
+                            <div id="coupon">
+                                <form id="applycoupon">
+                                    <% if (newCoupon.length>0) { %>
+                                        <select id="test1" name="coupon" class="form-select">
+                                            <option disabled selected>Select a coupon.!</option>
+                                            <% newCoupon.forEach((x)=> { %>
+                                                
+                                                <% if (x.status==='Block' ) { %>
+                                                    <option value="<%=x.status%>">
+                                                        <%=x.status %>
+                                                    </option>
+
+                                                    <% }else if (x.status==='Active' ){ %>
+
+                                                        <option value="<%=x.couponCode%>">
+                                                            <%=x.couponCode %>
+                                                        </option>
+                                                        <%}%>
+                                                            <% }) %>
+                                        </select>
+                                        <% } else {%>
+                                            <p class="text-primary">no coupons available, better luck next time</p>
+                                            <%}%>
+
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-dark btn-sm my-2">Apply
+                                                        Coupon</button>
+                                                </div>
+                                </form>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p class="fw-bold">Total Amount</p>
+                                <p class="fw-bold">Rs <%= total %>
+                                </p>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <p class="text-secondary">Discounted Amount</p>
+                                <p class="text-secondary fw-bold" id="discounted-amount">Rs 0</p>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <p class="text-dark">Grand Total</p>
+                                <p class="text-dark fw-bold" id="grandtotal-amount">Rs <%= total %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </main>
+
+
+        <!--footer-->
+        <!-- ................................................................................................................ -->
+
+        <%- include('../partials/userFooterOffcanavas') %>
+
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+            <script>
+
+                $(document).ready(function () {
+                    // Initially hide the Confirm Checkout button
+                    $('#confirmCheckoutBtn').hide();
+
+                    // Event listener for the payment method dropdown
+                    $('select[name="payment"]').change(function () {
+                        var selectedPaymentMethod = $(this).val();
+
+                        // If the selected payment method is 'onlinePayment', show the online payment button and hide the Confirm Checkout button
+                        if (selectedPaymentMethod === 'onlinePayment') {
+                            $('#confirmCheckoutBtn').hide();
+                            $('#onlinePaymentBtn').show();
+                        } else {
+                            // If any other payment method is selected, hide the online payment button and show the Confirm Checkout button
+                            $('#onlinePaymentBtn').hide();
+                            $('#confirmCheckoutBtn').show();// it only work work with button 
+                        }
+                    });
+
+
+
+                    //<-------------------------------------------when we are clicking online button ----------------------------------------------->
+
+
+                    // Event listener for the online payment button click
+                    $('#onlinePaymentBtn').click(function () {
+                        makePayment();
+                    });
+                });
+
+                function makePayment() {
+                    var addressID = $('select[name="address"]').val();
+                    var paymentMethod = $('select[name="payment"]').val();
+                    $.ajax({
+                        url: '/makePayment',
+                        type: 'get',
+                        data: {
+                            addressID: addressID,
+                            paymentMethod: paymentMethod
+                        },
+                        contentType: 'application/json',
+                        success: function (response) {
+                            const order = response.order
+                            const id = order.id;
+                            const total = order.amount;
+                            var options = {
+                                key: 'rzp_test_5R2m8IF7tYZkkO',
+                                amount: total,
+                                currency: 'INR',
+                                name: 'Bikereez',
+                                description: 'Test Transaction',
+                                image: '',
+                                order_id: id,
+                                handler: function (response) {
+                                    //   alert(response.razorpay_payment_id);
+                                    //   alert(response.razorpay_order_id);
+                                    verifyPayment(response, order)
+                                },
+                                theme: {
+                                    color: '#3c3c3c'
+                                }
+                            }
+                            var rzp1 = new Razorpay(options);
+                            rzp1.open();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                            // alert('Error creating order. Please try again.');
+                            req.flash('error', 'Error creating order. Please try again.')
+                        }
+                    });
+
+                }
+
+                function verifyPayment(payment, order) {
+                    console.log('now in verifyPayment ', payment)
+                    $.ajax({
+                        url: '/verifyPayment',
+                        data: {
+                            payment,
+                            order,
+                            // orderId       
+                        },
+                        method: 'post',
+                        success: (response) => {
+                            if (response.success) {
+                                createOrder();
+                                console.log('response got')
+                                //  location.href = ''
+                            } else {
+                                console.log('response not get');
+                                location.href = ''
+                            }
+                        }
+                    })
+                }
+
+                function createOrder() {
+                    var addressID = $('select[name="address"]').val();
+                    var paymentMethod = $('select[name="payment"]').val();
+                    $.ajax({
+                        url: '/onlineCheckOut',
+                        method: 'POST',
+                        data: {
+                            addressID: addressID,
+                            paymentMethod: paymentMethod
+                        },
+                        success: function (response) {
+                            location.href = '/homepage'
+                            orderId = response.orderId
+                        }
+                    });
+                }    
+            </script>
+
+            <script>
+                var selectCoupon = document.getElementById('coupon-text');
+                var coupon = document.getElementById('coupon');
+
+                selectCoupon.addEventListener('click', function () {
+                    selectCoupon.style.display = 'none';
+                    coupon.style.display = 'block';
+                })
+
+
+                $('#applycoupon').submit(function (event) {
+                    event.preventDefault();
+                    var selectedCoupon = $('#test1').val();
+
+                    $.ajax({
+                        url: '/applycoupon',
+                        method: 'POST',
+                        data: {
+                            coupon: selectedCoupon
+                        },
+                        success: function (response) {
+
+                            console.log(response);
+
+
+                            if (response.success) {
+                                updateDiscountedAmount(response.discountedAmount);
+                                updateGrandtotal(response.grandTotal)
+                            } else {
+                                alert('Coupon application failed. Please try again.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                            alert('Error applying coupon. Please try again.');
+                        }
+                    })
+                })
+
+                function updateDiscountedAmount(discountedAmount) {
+                    $('#discounted-amount').text('Rs ' + discountedAmount);
+                }
+
+                function updateGrandtotal(grandTotal) {
+                    $('#grandtotal-amount').text('Rs ' + grandTotal);
+                }
+
+            </script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "json": "^11.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "magnific-popup": "^1.1.0",
+    "moment": "^2.29.4",
+    "mongoose": "^8.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nocache": "^4.0.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.7",
+    "nodemon": "^3.0.1",
+    "passport": "^0.7.0",
+    "pdfkit": "^0.14.0",
+    "razorpay": "^2.9.2",
+    "sweetalert2": "^11.10.3",
+    "validator": "^13.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

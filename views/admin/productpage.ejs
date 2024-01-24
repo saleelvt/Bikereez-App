@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Italianno' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/admin/productpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+</head>
+
+
+
+<!-- Offcanvas menu -->
+<%- include('../partials/adminoffcanvas') %>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-4   d-flex ">
+                <div class="container-fluid py-5 t">
+
+                    <div class="admin-dashboard rounded" style="width: 220px;" id="">
+
+                        <div class="offcanvas-body p-0 px-md-4  ">
+                            <ul class="list-group custom-list ">
+                                <a href="/admin/admin-dashboard" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-house me-2"></i>
+                                    <span class="fw-bold">Dashboard</span>
+                                </a>
+                                <a href="/admin/product" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-bag-shopping me-2"></i>
+                                    <span class="fw-bold">Products</span>
+                                </a>
+                                <a href="/admin/admin-OrderList" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-cart-shopping me-2"></i>
+                                    <span class="fw-bold">Orders</span>
+                                </a>
+                                <a href="/admin/userslist" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-users me-2"></i>
+                                    <span class="fw-bold">Customers</span>
+                                </a>
+                                <a href="/admin/adminCoupon" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-id-card me-2"></i>
+                                    <span class="fw-bold">Coupons</span>
+                                </a>
+                                <!-- <a href="/admin/banners" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-flag me-2"></i>
+                                    <span class="fw-bold">Banners</span>
+                                </a> -->
+
+                                <a href="/admin/brandpage" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    <span class="fw-bold">Brands</span>
+                                </a>
+
+                                
+                                <a href="/admin/category" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-list me-2"></i>
+                                    <span class="fw-bold">Categories</span>
+                                </a>
+                                <!-- <a href="/admin/payments" class="list-group-item custom-list-item bg-light">
+                                    <i class="fas fa-money-bill me-2"></i>
+                                    <span class="fw-bold">Payments</span>
+                                </a> -->
+                                <a href="/admin/offers" class="list-group-item custom-list-item bg-light">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span class="fw-bold">Offers</span>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% if (messages.success) { %>
+                <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <p class="m-0"><strong>Message.! </strong><%= messages.success %></p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            <% }else if (messages.error){ %>
+                <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p class="m-0"><strong>Message.! </strong><%= messages.error %></p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            <%}%> 
+            
+            <script>
+                setTimeout(function () {
+                    document.getElementById('msg-div').style.display = 'none';
+                }, 2000);
+            </script>
+
+            <div class="col-lg-10   d-flex justify-content-center  py-5 ">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-secondary me-2">Select Date</button>
+                            <button class="btn btn-primary me-2">Filter</button>
+                        </div>
+                        <a href="/admin/addProduct">
+                            <button class="btn btn-primary" id="addProduct">ADD Product</button>
+                        </a>
+                    </div>
+
+                    <table class="table table-bordered table-hover mt-3 bg-light shadow-lg">
+                        <thead class="table-bordered  shadow-lg">
+                            <tr>
+                                <th>Serial No</th>
+                                <th>Product Name</th>
+                                <th>Brand Name</th>
+                                <th>Category</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th> After Discount Amount</th>
+                                <th>Available Quantity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <% products.forEach((product, index)=> { %>
+                            <% if (product.Display==='Active' ) { %>
+                                <tbody>
+                                    <% } else if (product.Display==='Block' ) { %>
+                                <tbody class="table-light">
+                                    <% } %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td><a href="/admin/viewproductdetails/<%=product._id%>"
+                                                    class="text-secondary">
+                                                    <%= product.ProductName %>
+                                                </a></td>
+                                            <td>
+                                                <%= product.BrandName.Name %>
+                                            </td>
+                                            <td>
+                                                <%= product.Category.Name %>
+                                            </td>
+                                            <td>
+                                                <img src="/uploads/<%= product.images [0] %>" alt="Product Image"
+                                                    style="max-width: 100px; height: auto;">
+                                            </td>
+                                            <td class="text-danger"><del>
+                                                    <%= product.Price %>
+                                                </del></td>
+                                            <td class="text-success">
+                                                <%= product.DiscountAmount %>
+                                            </td>
+                                            <td>
+                                                <%= product.AvailableQuantity %>
+                                            </td>
+                                            <td>
+                                                <% if (product.Display==='Active' ) { %>
+                                                    <p class="text-success fw-bold">
+                                                        <%= product.Display %>
+                                                    </p>
+                                                    <% } else if (product.Display==='Block' ) { %>
+                                                        <p class="text-danger fw-bold">
+                                                            <%= product.Display %>
+                                                        </p>
+                                                        <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (product.Display==='Active' ) { %>
+                                                    <a href="/admin/product/<%=product._id%>">
+                                                        <button
+                                                            onclick="return confirm(`Are you sure to block <%= product.ProductName %>??`)"
+                                                            class="btn btn-danger">Block</button>
+                                                    </a>
+                                                    <% } else if (product.Display==='Block' ) { %>
+                                                        <a href="/admin/product/<%=product._id%>">
+                                                            <button
+                                                                onclick="return confirm(`Are you sure. You are going to unblock the  <%= product.ProductName %>`)"
+                                                                class="btn btn-success">Unblock</button>
+                                                        </a>
+                                                        <% } %>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <% if (products.length> 0) { %>
+        <div class="d-flex justify-content-between m-auto w-50 align-items-center mt-3">
+            <p>Showing <%= (currentPage - 1) * perPage + 1 %>-
+                    <% if(currentPage===totalPages){%>
+                        <%=totalCount%>
+                            <%}else{%>
+                                <%= currentPage * perPage %>
+                                    <%}%>
+                                        results from <%= totalCount %>
+            </p>
+            <ul class="pagination">
+                <% for (let i=1; i <=totalPages; i++) { %>
+                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                        <a class="page-link" href="?page=<%= i %>">
+                            <%= i %>
+                        </a>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+        <% } %>
+
+
+
+    <!-- Bootstrap JavaScript (place at the end of the body) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('staticBackdrop'));
+    </script>
+    </body>
+
+</html>

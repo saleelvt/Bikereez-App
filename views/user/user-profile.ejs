@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Add Edit  Address Page</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+
+<body>
+     <!--header-->
+     <%- include('../partials/userHeader') %>
+
+
+
+
+
+    <main>
+
+        <div class="container-fluid ">
+            <div class="row d-flex justify-content-center   py-5 mt-5">
+                <div class="col-7 bg-light rounded rounded-2 shadow-sm border  " id="profile" style="display: block;">
+                    <div class="d-flex justify-content-end">  <a href="/user-referral" class="btn btn-dark fw-bold btn-sm mt-2 fa-beat " style="height: 36px;">Referrals
+                    </a></div>
+                  
+                    <div class="d-flex shadow-sm rounded-3 m-5 bg-white">
+                        <div class="mx-5 my-3 d-flex align-items-center">
+                            <img style="height: 150px; width: auto;" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"
+                                alt="">
+                        </div>
+
+                        <div class="mx-5 my-3 d-flex align-items-center">
+                            <div>
+                                <h4 class="my-3 fw-bold"><%= newUser.Username %></h4>
+                                <p class="">
+                                    <%= newUser.Email%>
+                                </p>
+
+                                <% if (newUser.Address.length>0) { %>
+                                    <p class="mb-1">
+                                        <%= newUser.Address[0].AddressLane %>
+                                    </p>
+                                    <p class="mb-1">
+                                        <%= newUser.Address[0].City %>, <%= newUser.Address[0].State %> - <%=
+                                                    newUser.Address[0].Pincode %>
+                                    </p>
+
+                                    <p class="mb-3">
+                                        <%= newUser.Address[0].Mobile %>
+                                    </p>
+
+                                <% } %>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+    </main>
+
+
+    
+                              <!-------------------footer-------------------->
+    
+  
+   
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <%- include('../partials/userFooterOffcanavas') %>
+    <script src="/js/user-address.js"></script>
+    <script src="/js/signup.js"></script>
+</body>
+
+</html>
+
+    
+    

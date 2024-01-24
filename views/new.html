@@ -1,0 +1,11 @@
+const Id = req.session.userId
+const user = await User.findById(Id)
+
+if (user.Status === 'Active') {
+
+ 
+
+}else{
+  console.log('this user are blocked ');
+  
+}

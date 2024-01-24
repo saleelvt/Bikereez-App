@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKEREEZ</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<body>
+    <!--header-->
+    <header>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class=" shadow-sm">
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm border rounded-2 ">
+                        <div class="container-fluid">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                                <a class="navbar-brand fs-2" href="#"
+                                    style="font-style: italic; text-shadow: 0px 0px 4px black; ">BIKEREEZ</a>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                                    <li class="nav-item px-2">
+                                        <a class="nav-link active text-black" aria-current="page" href="/login"> <i
+                                                class="fas fa-solid text-black fa-house fa-lg"></i> </a>
+                                    </li>
+                                    <li class="nav-item px-2">
+                                        <a class="nav-link active " aria-current="page" href="/login"> <i
+                                                class="fa-solid fa-heart fa-lg mt-2"></i> </a>
+                                    </li>
+                                    <li class="nav-item px-2 ">
+
+                                        <a class="nav-link active " aria-current="page" href="/login"> <i
+                                                class="fa-solid fa-cart-shopping  fa-lg"></i> </a>
+
+                                    </li>
+
+
+                                </ul>
+                                <form class="d-flex" role="search" action="/search" method="GET">
+                                    <input class="form-control me-2 btn-sm" type="search" name="searchNames"
+                                        placeholder="Search" aria-label="Search">
+                                    <button class="btn  btn-outline-dark   " type="submit">Search</button>
+                                </form>
+
+
+
+                            </div>
+                        </div>
+                        <a class="nav-link active " aria-current="page" href="/login"> <i
+                                class="fa-solid fa-right-to-bracket fw-bold fa-lg fa-beat-fade"></i>Login</a>
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+
+
+    <!-----------carosile---------- -->
+
+
+
+    <section class="container py-3 pe-5   ">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators ">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner shadow-lg">
+                <div class="carousel-item active">
+                    <img class="rounded" src="/DBH_HEADER-01-1.jpg" style="width: 100%; height: 500px;"
+                        class="img-fluid" alt="test">
+                </div>
+                <div class="carousel-item">
+                    <img class="rounded"
+                        src="/road_1600x685_home-main-banner_2019_BIKE_SCOTT-Sports_India_1595669_jpg_original_1.jpg"
+                        style="width: 100%; height: 500px;" class="img-fluid" alt="test">
+                </div>
+                <div class="carousel-item">
+                    <img class="rounded" src="/Silverback-banner-offer.jpg" style="width: 100%; height: 500px;"
+                        class="img-fluid" alt="test">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+
+
+    <!--main-->
+    <main>
+        <div class="container shadow-sm py-3 border rounded">
+            <section>
+
+                <h3 class="fw-bold">Shop Popular Categories</h3>
+                <div class="row d-flex justify-content-center py-2 ">
+                    <div class="container">
+                        <div class="row d-flex justify-content-center ">
+                            <% categories.forEach(function(category) { %>
+                               
+                                <div class="col-2 p-2">
+                                    <div
+                                        class="alert-info shadow-sm rounded border p-3 d-flex justify-content-center ">
+                                        <a class="text-decoration-none text-dark"
+                                            href="/categoryFilter/<%= category._id %>">
+                                            <%= category.Name %>
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <% }); %>
+                        </div>
+                    </div>
+
+
+
+            </section>
+
+        </div>
+
+        </div>
+
+
+
+    </main>
+
+
+    <!-------------------------------------------------------Top  products ----------------------------------------------------->
+
+    <main>
+        <div class="container shadow-sm py-4 my-5 border rounded">
+            <section>
+
+                <h2 class="fw-bold">Top Features Products</h1>
+                    <div class="row d-flex justify-content-center py-3">
+                        <% products.forEach(function(product) { %>
+                            <div class="col-3 my-3">
+                                <div class="card-body shadow-sm border p-3 rounded-2 "  style="height: 330px;">
+                                    <img src="/uploads/<%= product.images[0] %>" class="card-img-top img-fluid py-2"
+                                        alt="..." style="width: auto; height: 150px;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-shadow"
+                                            style="height: 1.5rem; overflow: hidden; text-overflow: ellipsis; width: 80%;">
+                                            <%= product.ProductName %>
+                                        </h5>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <% if (product.AvailableQuantity===0) { %>
+                                                <div style="background-color: rgb(234, 72, 72);">
+                                                    <p class="card-text text-center text-light">Out of Stock</p>
+                                                </div>
+                                                <% } else { %>
+                                                    <p class="card-text text-center text-danger"><del> ₹<%=
+                                                                product.Price %></del></p>
+
+
+                                                    <% if (product.OfferPrice>0) { %>
+                                                        <p class="text-success small fw-bold m-0"> Offer Price: Rs ₹<%=
+                                                                product.OfferPrice %>
+                                                        </p>
+                                                        <% }else if (product.DiscountAmount){ %>
+                                                            <p class="card-text text-center text-success"> Discounted
+                                                                Price ₹<%= product.DiscountAmount %>
+                                                            </p>
+
+                                                            <%}%>
+                                                                <a href="/veiwProdectDetails/<%= product._id %>"
+                                                                    class="btn btn-primary text-center">View
+                                                                    Details</a>
+                                                                <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% }); %>
+
+            </section>
+
+        </div>
+
+        </div>
+
+
+
+    </main>
+
+
+    <!--footer-->
+
+
+    <%- include('../partials/userFooterOffcanavas') %>
+</body>
+
+</html>

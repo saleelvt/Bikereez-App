@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List Details </title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+
+<body>
+    <!--header-->
+    <%- include('../partials/userHeader') %>
+
+        <main>
+
+            <div class="container-fluid p-2">
+                <div class="row">
+                    <div class="col-10 m-auto bg-white rounded shadow-sm p-3">
+                        <h3 class="fw-bold text-center">Order</h3>
+                        <hr>
+                        <div class="p-3 shadow-sm d-flex justify-content-center align-items-center">
+        
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th>Customer & Address</th>
+                                    <td>
+                                        <strong>
+                                            <%=newOrders.address.Name%>
+                                        </strong>
+                                        <br>
+                                        <%=newOrders.address.AddressLane %> <br>
+                                            <%=newOrders.address.City %> <br>
+                                                <%=newOrders.address.State%> - <%=newOrders.address.Pincode%>
+                                                        <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Mobile</th>
+                                    <td>
+                                        <%=newOrders.address.Mobile%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <td>ORD_<%=newOrders._id %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Order Date</th>
+                                    <td>
+                                        <%=new Date(newOrders.orderDate).toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="vertical-align: middle;">Products</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th style="text-align: center; vertical-align: middle;">Price</th>
+                                                <th style="text-align: center; vertical-align: middle;"> After Discount</th>
+                                                <th style="text-align: center; vertical-align: middle;"> Discount Price</th>
+                                                <th style="text-align: center; vertical-align: middle;">Quantity</th>
+                                                <th style="text-align: center; vertical-align: middle;">Image</th>
+                                            </tr>
+                                            <% newOrders.items.forEach((x)=> { %>
+                                                <tr>
+                                                    <td style="vertical-align: middle;">
+                                                        <%=x.productId.ProductName %>
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
+                                                        <%=x.productId.Price %>
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
+                                                        <%=x.productId.DiscountAmount %>
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
+                                                        <%= x.productId.Price-x.productId.DiscountAmount  %>
+                                                    </td>
+                                                    <td style="text-align: center; vertical-align: middle;">
+                                                        <%=x.quantity%>
+                                                    </td>
+                                                    <td style="text-align: center; vertical-align: middle;"><img
+                                                            src="/uploads/<%=x.productId.images[0]%>" alt=""
+                                                            style="width: auto; height: 70px;"></td>
+                                                </tr>
+        
+                                                <% }) %>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Total Quantity</th>
+                                    <td>
+                                        <%=newOrders.totalQuantity%> Nos.
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <th>Actual Price  </th>
+                                    <td>Rs <%=newOrders.OfferPrice%>/-</td>
+                                </tr> -->
+                               
+
+                                <tr>
+                                    <th>Grand Total </th>
+                                    <td>Rs <%=newOrders.totalAmount%>/-</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment Method</th>
+                                    <td>
+                                        <%=newOrders.paymentMethod %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Payment Status</th>
+
+                                    <td>
+                                        <%=newOrders.paymentStatus %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Order Status</th>
+                                    <% if (newOrders.status==="Cancelled" || newOrders.status==="Shipped" ||
+                                        newOrders.status==="Returned" || newOrders.status==="Order Placed" ||newOrders.status==="Return Pending") { %>
+                                        <td class="fw-bold text-danger">
+                                            <%= newOrders.status %>
+                                        </td>
+                                        <% } else if (newOrders.status==="Delivered" ){%>
+                                            <td class="fw-bold text-success">
+                                                <%= newOrders.status %>
+                                            </td>
+                                            <%} else {%>
+                                                <td>
+                                                    <%= newOrders.status %>
+                                                </td>
+        
+                                                <%}%>
+        
+                                </tr>
+                                <form method="post" action="#">
+                               
+                                        <tr>
+                                            <th>
+                                                <!-- <input type="hidden" value="{{ orders.id }}" name="id"> -->
+                                                <!-- <select name="status" class="form-select" required>
+                                            <option value="<%=newOrders.status %>" selected disabled>Order Options</option>
+                                            <% if (newOrders.status==="Delivered") { %>
+                                                <option value="return">Return</option>                                     
+                                            <% } else{%>
+                                                <option value="cancel">Cancel</option>
+                                                <%}%>
+                                        </select> -->
+                                            </th>
+                                            <% if (newOrders.status==="Order Placed" || newOrders.status==="Shipped" ) { %>
+                                                <td><a href="/cancelOrder/<%= newOrders._id %>"
+                                                        class="btn btn-outline-danger fw-bold "
+                                                        onclick="return confirm('Are you really want to Cancel the order')">Cancel
+                                                        Order</a></td>
+        
+                                                <% } else if (newOrders.status==="Delivered") {%>
+                                                    <td><a href="/returnOrder/<%= newOrders._id %>"
+                                                            class="btn btn-outline-danger  fw-bold"
+                                                            onclick="return confirm('Are you really want to Return the order')">Return
+                                                            Order</a></td>
+        
+                                                    <%}else if(newOrders.status==="Return Pending"){%> 
+                                                        <td><p class="fw-bold text-danger">Admin approval pending</p></td>  
+                                                          
+                                                        <%}else if(newOrders.status==="Returned"){%>
+                                                            <td><p class="fw-bold text-success">Product Returned Succesfully</p></td>
+                                                            <%}else {%>
+                                                                <td><p class="fw-bold text-success">Product Cancelled Succesfully</p></td>
+        
+                                                                <%}%>
+                                                              
+        
+        
+                                                        <!-- <td><a href=""  value="Back" class="btn btn-primary">Back</a></td> -->
+                                                        <!-- <td><input type="submit" value="Update" class="btn btn-primary"></td> -->
+        
+                                        </tr>
+        
+                                </form>
+                                <% if (newOrders.paymentStatus=='paid' ) { %>
+                            <td>
+                                
+                                <a href="/invoice/<%= newOrders._id %>"><button class="btn btn-dark m-auto">Download
+                                        Invoice</button></a>
+
+                            </td>
+
+                            <% } %>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <% if (newOrders.length> 0) { %>
+        <div class="d-flex justify-content-between m-auto w-50 align-items-center mt-3">
+            <p>Showing <%= (currentPage - 1) * perPage + 1 %>-
+                    <% if(currentPage===totalPages){%>
+                        <%=totalCount%>
+                            <%}else{%>
+                                <%= currentPage * perPage %>
+                                    <%}%>
+                                        results from <%= totalCount %>
+            </p>
+            <ul class="pagination">
+                <% for (let i=1; i <=totalPages; i++) { %>
+                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                        <a class="page-link" href="?page=<%= i %>">
+                            <%= i %>
+                        </a>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+        <% } %>
+
+        </main>
+
+
+
+
+        <!--footer-->
+
+        <%- include('../partials/userFooterOffcanavas') %>
+
+
+</body>
+
+</html>

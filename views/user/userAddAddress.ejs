@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Add Address Page</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<body>
+     <!--header-->
+     <%- include('../partials/userHeader') %>
+
+    <main>
+
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center ">
+                <div class="col-lg-6 col-12">
+                    <div class="card p-5 my-5 shadow-sm bg-light">
+                        <h4 class="text-center fw-bold" style="font-style: initial;">ADD ADDRESS</h4>
+                        <form action="/userAddress" method="post" >
+                            <% if (messages.success) { %>
+                                <div class="container my-3" style="border-radius: 20px;">
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <p class="m-0"><strong>Message.! </strong><%= messages.success %></p>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            <% }else if (messages.error){ %>
+                                <div class="container my-3" style="border-radius: 20px;">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <p class="m-0"><strong>Message.! </strong><%= messages.error %></p>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            <%}%> 
+                            
+                            <div class="form-group py-2 fw-bold">
+                                <label for="Name" class="py-1">Name</label>
+                                <input type="text" placeholder="Name" id="username" class="form-control" name="name" oninput="validateUserName()" required>
+                                <div id="nameCheck" class="text-danger"></div>
+                            </div>
+                            <div class="form-group py-2 fw-bold">
+                                <label for="House Name" class="py-1">Address</label>
+                                <textarea placeholder="Enter Your Address" class="form-control" id="address" name="houseName" oninput="validateUserAddress()" required></textarea>
+                                <div id="addressCheck" class="text-danger"></div>
+                            </div>  
+                            <div class="form-group py-2 fw-bold ">
+                                <label for="City" class="py-1">City</label>
+                                <input type="text" placeholder="City" id="city" class="form-control" name="city" required oninput="validateUserCity()">
+                                <div id="cityCheck" class="text-danger"></div>
+    
+                            </div>
+                            <div class="form-group py-2 fw-bold">
+                                <label for="Pincode" class="py-1">Pincode</label>
+                                <input type="number" placeholder="Pincode" class="form-control" id="pincode"  name="pincode" oninput="validatePincode() " required>
+                                <div id="pincodeMsg" class="text-danger"></div>
+                            </div> 
+                            <div class="form-group py-2 fw-bold">
+                                <label for="State" class="py-1">State</label>
+                                <input type="text" placeholder="State" id="state" class="form-control" name="state" required oninput="validateUserState()">
+                                <div id="stateCheck" class="text-danger"></div>
+                            </div>
+                            <div class="form-group py-2 fw-bold">
+                                <label for="Mobile" class="py-1">Mobile</label>
+                                <input type="number" placeholder="Mobile Number" id="mobile" class="form-control" name="mobile" oninput="validateMobileNumber() " required>
+                                <div id="mobileMsg" class="text-danger"></div>
+                            </div>
+                            <!-- <div class="form-group py-2">
+                                <label for="AltMobile" class="py-1">Alternative Mobile</label>
+                                <input type="number" placeholder="Alternative Mobile Number" id="altMobile" class="form-control" name="altMobile" oninput="validateAltMobileNumber() " required>
+                                <div id="altMobileMsg" class="text-danger"></div>
+                            </div> -->
+    
+                            <div class="d-flex justify-content-end py-3">
+                                <a href="/userAddress" type="submit" value="Exit" class="btn btn-outline-dark ">Exit</a>
+                                <input type="submit" value="Save Address" class="btn btn-outline-dark mx-4">                            
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+
+
+    <!--footer-->
+
+    <%- include('../partials/userFooterOffcanavas') %>
+
+
+
+<script src="/js/user-address.js"></script>
+<script src="/js/signup.js"></script>
+</body>
+
+</html>

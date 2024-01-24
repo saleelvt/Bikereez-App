@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>category Filtered page </title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="/CSS/user-welcome.css">
+<link rel="icon" type="image/x-icon" href="/assets/240_F_328494327_A2XpjDQp8f74FsQh7W7yof1tXU9ob3Sb.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- -----// font awsom ----- -->
+<script src="https://kit.fontawesome.com/1f94a7e510.js" crossorigin="anonymous"></script>
+
+<body>
+    <!--header-->
+    <%- include('../partials/userHeader') %>
+
+<main>
+    <div class="container-fluid">
+        <% if (messages.success) { %>
+            <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="m-0"><strong>Message.! </strong><%= messages.success %></p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        <% }else if (messages.error){ %>
+            <div class="container my-3" style="border-radius: 20px;" id="msg-div">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p class="m-0"><strong>Message.! </strong><%= messages.error %></p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        <%}%> 
+        
+        <script>
+            setTimeout(function () {
+                document.getElementById('msg-div').style.display = 'none';
+            }, 2000);
+        </script>
+        <div class="row p-1 shadow-sm pe-5">
+            <!-- <div class="col-md-2 p-5 bg-light px-2  border shadow-sm  my-2 ">
+                <h3 class="text-bold text-center">Filter Products</h3>
+                <hr>
+                <div>
+                    <button class="c-btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
+                      Categories
+                    </button>
+                    <div class="collapse ps-5" id="category-collapse">
+                        <ul class="list-unstyled">
+                            <li><a href="/filters" class="{% if not active_category %}text-primary{% else %}text-secondary{% endif %}">All Category</a></li>
+                            <% newcategory.forEach((x) => { %>
+                                <li>
+                                    <a href="/test/<%=x._id %>"
+                                       class="">
+                                       <%= x.Name %>
+                                    </a>
+                                </li>
+                             
+                            <% }) %>
+                           
+                        </ul>
+                    </div>
+                </div>
+            
+            </div>
+     -->
+
+            <% if (newproduct.length>0) { %>
+                <div class="col-md-10 p-2 ">
+                    <div class="row d-flex justify-content-center py-5">
+                        <% newproduct.forEach((product)=> { %>
+                            <div class="col-3 my-3">
+                                <div class="card-body shadow-sm border p-3 shadow-sm rounded-2">
+                                    <img src="/uploads/<%= product.images[0] %>" class="card-img-top img-fluid py-2"
+                                        alt="..." style="width: auto; height: 150px;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-shadow"
+                                            style="height: 1.5rem; overflow: hidden; text-overflow: ellipsis; width: 80%;">
+                                            <%= product.ProductName %>
+                                        </h5>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <% if (product.AvailableQuantity===0) { %>
+                                                <div style="background-color: rgb(234, 72, 72);">
+                                                    <p class="card-text text-center text-light">Out of Stock</p>
+                                                </div>
+                                                <% } else { %>
+                                                    <p class="card-text text-center text-danger"><del> ₹<%=
+                                                                product.Price %></del></p>
+
+                                                   <% if (product.OfferPrice>0) { %>
+                                                        <p class="text-success small fw-bold m-0"> Offer Price: Rs ₹<%=
+                                                                product.OfferPrice %>
+                                                        </p>
+                                                        <% }else if (product.DiscountAmount){ %>
+                                                            <p class="card-text text-center text-success"> Discounted
+                                                                Price ₹<%= product.DiscountAmount %>
+                                                            </p>
+
+                                                            <%}%>
+                                                    <a href="/veiwProdectDetails/<%= product._id %>"
+                                                        class="btn btn-primary text-center">View
+                                                        Details</a>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
+             
+            <% }else{ %>
+
+                <h3 class="alert alert-danger w-50 m-auto my-5 text-center">No Match Found</h3>
+                <%}%>
+            
+
+        </div>
+    </div>
+
+
+
+</main>
+
+
+        <!--footer-->
+
+        <%- include('../partials/userFooterOffcanavas') %>
+
+
+</body>
+
+</html>
