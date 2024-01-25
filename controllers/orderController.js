@@ -35,7 +35,7 @@ module.exports = {
                 const perPage = 5; // Number of items per page
                 const skip = (page - 1) * perPage;
                 const totalCount = await Order.countDocuments();
-                const orderList = await Order.find({userId:userId}).sort({ orderDate: -1 }).skip(skip).limit(perPage);
+                const orderList = await Order.findOne({userId:userId}).sort({ orderDate: -1 }).skip(skip).limit(perPage);
     
                 
     

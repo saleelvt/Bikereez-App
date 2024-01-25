@@ -139,11 +139,11 @@ router.route('/removefromWishlist/:id')
 // -----------------address route-----------
 
 router.route('/userAddress')
-.get(userController.getUserAddress)
+.get(userAuth.userTokenAuth,userController.getUserAddress)
 .post(userController.postAddAddress)
 
 router.route('/addAddress')
-.get(userController.getAddAddress)
+.get(userAuth.userTokenAuth,userController.getAddAddress)
 
 router.route('/deleteAddress/:id')
 .get(userController.deleteAddress)
