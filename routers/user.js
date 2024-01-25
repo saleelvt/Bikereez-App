@@ -159,16 +159,16 @@ router.route('/userWallet')
 .get(userAuth.userTokenAuth,walletController.getUserWallet)
 
 router.route('/applyCoupon')
-.post(couponController.postApplyCoupon)
+.post(userAuth.userTokenAuth,couponController.postApplyCoupon)
 
 
 // <----------Payment route--------------->
 
 router.route('/makePayment')
-.get(paymentController.getCreateOrder)
+.get(userAuth.userTokenAuth,paymentController.getCreateOrder)
 
 router.route('/verifyPayment')
-.post(paymentController.getVerifyPayment)
+.post(userAuth.userTokenAuth,paymentController.getVerifyPayment)
 
 router.route('/onlineCheckOut')
 .post(paymentController.postOnlineCheckOut)
