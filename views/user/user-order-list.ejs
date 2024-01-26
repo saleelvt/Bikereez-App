@@ -93,27 +93,7 @@
         </main>
 
 
-        <% if (orderList.length> 0) { %>
-            <div class="d-flex justify-content-between m-auto w-50 align-items-center mt-3">
-                <p>Showing <%= (currentPage - 1) * perPage + 1 %>-
-                        <% if(currentPage===totalPages){%>
-                            <%=totalCount%>
-                                <%}else{%>
-                                    <%= currentPage * perPage %>
-                                        <%}%>
-                                            results from <%= totalCount %>
-                </p>
-                <ul class="pagination">
-                    <% for (let i=1; i <=totalPages; i++) { %>
-                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                            <a class="page-link" href="?page=<%= i %>">
-                                <%= i %>
-                            </a>
-                        </li>
-                        <% } %>
-                </ul>
-            </div>
-            <% } %>
+       
 
         <!--footer-->
 

@@ -21,41 +21,35 @@ module.exports = {
         const user = await User.findById(Id)
 
 
-        
+
         if (user.Status === 'Active') {
-        
+
             try {
                 const userId = req.session.userId
                 const email = req.session.user
                 const user = await User.findOne({ Username: email })
                 const carts = await Cart.findOne({ userId: userId })
-    
-    
-                const page = parseInt(req.query.page) || 1; // Get the page number from query parameters
-                const perPage = 5; // Number of items per page
-                const skip = (page - 1) * perPage;
-                const totalCount = await Order.countDocuments();
-                const orderList = await Order.findOne({userId:userId}).sort({ orderDate: -1 }).skip(skip).limit(perPage);
-    
-                
-    
+
+
+
+                const orderList = await Order.find({ userId: userId }).sort({ orderDate: -1 })
+
+
+
                 res.render('./user/user-order-list', {
                     orderList,
-                    currentPage: page,
-                    perPage,
-                    totalCount,
-                    totalPages: Math.ceil(totalCount / perPage), carts, user
+                    carts, user
                 })
             } catch (error) {
                 console.log(error);
             }
-        
-        }else{
-          console.log('this user are blocked ');
-          
+
+        } else {
+            console.log('this user are blocked ');
+
         }
 
-       
+
     },
 
     getOrderDetailView: async (req, res) => {
