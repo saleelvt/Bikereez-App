@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Forgot Password</title>
+    <style>
+        .card{
+            width: 50%;
+        }
+        @media(max-width:600px){
+            .card{
+                width: 100%;
+            }
+        }
+        @media(max-width:800px){
+            .card{
+                width: 75%;
+            }
+        }
+        .foot{
+            border-radius: 25px 25px 0px 0px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="top bg-dark w-100  d-flex justify-content-end fw-bold align-items-center">
+            <p class="text-white m-0 py-2">Call us: 9876543210 <a href="/login" class="text-decoration-none text-white px-2 pe-5">Sign In</a></p>
+        </div>
+        <div class="mid  bg-primary w-100 d-flex justify-content-between fw-bold align-items-center">
+            <h1 class="px-5">Trainers <span style="font-size: small; font-weight: 700;">Cricket zone</span></h1>
+            <div>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p class="fw-bold pe-5 m-0 te">Shopping Cart</p>
+            </div>
+        </div>
+        <div class="bot"></div>
+    </div>
+
+    <!-- Login Register -->
+    <div class="container">
+        <div class="box d-flex align-items-center justify-content-center px-md-5 m-auto py-5">
+            <div class="card p-4">
+              <br><br>
+            <h2 class="text-center">FORGOT PASSWORD</h2>
+            <form action="/forgotPwd" method="post" class="form-row">
+              
+
+                <label for="email" class="form-group">Email address</label>
+                <input type="email" name="email" placeholder="Type your registered email here" class="form-control border-dark" required>
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger">
+                        <%= messages.error %>
+                    </div>
+                <% } %>
+                <div class="text-center py-3">
+                    <input type="submit" class="btn btn-outline-dark px-5">                    
+                </div>
+            </form>
+            <br><br><br>
+            
+        </div>
+        </div>
+    </div><br><br>
+    <!-- end login register -->
+    <%- include('../partials/footer') %>
+
+    
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+

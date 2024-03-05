@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Italianno' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/admin/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+</head>
+<body>
+    <div class="navbar sticky-top">
+        <div class="top bg-dark w-100  d-flex justify-content-end fw-bold align-items-center">
+            <p class="text-white m-0 py-2">Call us: 9876543210 <a href="/login" class="text-decoration-none text-white px-2 pe-5">Sign Out</a></p>
+        </div>
+        <div class="mid  bg-primary w-100 d-flex justify-content-between fw-bold align-items-center">
+            <%- include('../partials/userOffCanvas') %>
+            <h1 class="px-5">Trainers <span style="font-size: small; font-weight: 700;">Cricket zone</span></h1>
+            <div>
+                <a href="/getCart" class="text-dark text-decoration-none d-flex mx-3">
+                    <i class="fa-solid fa-cart-shopping fs-5"></i>
+                    <sup class="text-white rounded-pill m-1" id="totalQuantity"><%= totalQuantity %></sup>                    
+                </a>
+                
+            </div>
+        </div>
+    </div>
+
+
+    
+    <!-- ...................................................................... -->
+    <div class="container-fluid" style="min-height: 65vh;">
+        <div class="row p-1">
+            <div class="col-md-8 p-3">
+                <h3 class="fw-bold text-secondary">Cart Page</h3>
+                <hr>
+                <% if (messages.success) { %>
+                    <div class="alert alert-success">
+                        <%= messages.success %>
+                    </div>
+                <% }else if (messages.error){ %>
+                  <div class="alert alert-danger">
+                    <%= messages.error %>
+                </div>
+                <%}%>
+                <div class="bg-white rounded shadow-sm border d-flex justify-content-between align-items-left my-1">
+                    <table class="table table-borderless m-0">
+                            <% if (newCart && newCart.items.length > 0) { %>
+                                <% newCart.items.forEach((x) => { %>
+                            <tr class="border">
+                                <th class="text-center">
+                                        <img src="/uploads/<%= x.productId.images[0]%>" alt="Product-image" class="img-fluid" style="height: 100px; width: auto;"></th>
+                                <th>
+                                    <p class="fw-bold m-1"><%= x.productId.name %></p>
+                                    <div class="d-flex  align-items-left p-2">
+                                        <button class="btn btn-outline-dark p-1 px-3" onclick="quantityChanger('<%= x.productId._id %>',-1,'<%=newCart._id%>')">-</button>                                        
+                                        <p class="fw-bold m-0 px-2 p-1" id="quantity_<%= x.productId._id %>"><%= x.quantity %></p>
+                                        <button class="btn btn-outline-dark me-3" onclick="quantityChanger('<%= x.productId._id %>',1,'<%=newCart._id%>')">+</button>
+                                     
+                                    </div>
+                                </th>
+                                <th><p class="fw-bold text-secondary my-4">Rs <%= x.quantity * (x.productId.price-x.productId.discount) %></p></th>
+                                <th><a href="/removeCartItems/<%=x.productId._id%>"><button class="btn btn-outline-dark p-1 px-3 my-4 fw-bold" onclick="return confirm('Are you sure to delete the item')">Remove</button></a>
+                                    </th>                               
+                                    <!-- <th><a href="" class="btn btn-outline-dark p-1 px-3 my-4 fw-bold" >Remove</a></th> -->                                      
+                            </tr>
+                            <% }) %>  
+                            <% }else{ %>
+                                <tr>
+                                    <th>
+                                        <h3 class="alert alert-danger w-50 m-auto my-5 text-center">No Cart Found</h3>
+                                    </th>
+                                </tr>
+                                <%}%>
+                        </table>
+                    </div> 
+            </div>
+            <div class="col-md-4 p-3">
+                <div class="p-5 bg-white shadow-sm">
+                    <h4 class="fw-bold">SUMMARY</h4>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p class="text-secondary">Price</p>
+                        <p class="text-secondary fw-bold">Rs <%= total %></p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="text-secondary">No of items</p> 
+                        <p class="text-secondary"><%= totalQuantity %></p>                            
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="text-secondary">Delivery Fee</p>
+                        <!-- <p class="text-secondary fw-bold">$ 0</p> -->
+                        <p class="text-secondary fw-bold">Free</p>
+                        <!-- <p class="text-secondary fw-bold">$ 250.00</p> -->
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p class="fw-bold">Total Amount</p>
+                        <p class="fw-bold">Rs <%= total %></p>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <% if (newCart && newCart.items.length > 0) { %>
+                            <a href="/checkOut" class="btn btn-outline-primary">Checkout</a>                         
+                        <% } %>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <!-- ......................................................................................... -->
+    <%- include('../partials/footer') %>
+
+   <script>
+    function quantityChanger(productId, count, cartId) {     
+      var quantityElement = document.getElementById("quantity_" + productId);
+      var totalQuantityElement = document.getElementById("totalQuantity");
+      var currentQuantity = parseInt(quantityElement.innerText, 10)
+      if (count === 1) {
+        currentQuantity += 1;
+        quantityElement.innerText = currentQuantity;        
+      } else if (count === -1 && currentQuantity > 1) {
+        currentQuantity -= 1;
+        quantityElement.innerText = currentQuantity;        
+      }
+          
+
+      $.ajax({
+        url:'/updateQuantity',
+        method:'POST',
+        data:{
+            productId:productId,
+            quantity:currentQuantity,
+            carts:cartId
+        },
+        success : function (Response) {                
+            if(Response.success){
+                totalQuantityElement.innerText = Response.totalQuantity;
+                // alert('quantity updated');
+                location.reload()
+            }else{ 
+                alert('you exeeded the limit');
+                location.reload()
+
+            }
+        }
+      })
+    }
+   </script>
+</body>
+</html>

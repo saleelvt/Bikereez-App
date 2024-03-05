@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Login</title>
+    <style>
+        .card {
+            width: 50%;
+        }
+
+        @media(max-width:600px) {
+            .card {
+                width: 100%;
+            }
+        }
+
+        @media(max-width:800px) {
+            .card {
+                width: 75%;
+            }
+        }
+
+        .foot {
+            border-radius: 25px 25px 0px 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="top bg-dark w-100  d-flex justify-content-end fw-bold align-items-center">
+            
+        </div>
+        <div class="mid  bg-primary w-100 d-flex justify-content-between fw-bold align-items-center">
+            <h1 class="px-5">Trainers <span style="font-size: small; font-weight: 700;">Cricket zone</span></h1>
+           
+        </div>
+      
+    </div>
+
+    <!-- Login Register -->
+    <div class="container">
+        <div class="box d-flex align-items-center justify-content-center px-md-5 m-auto py-5">
+            <div class="card p-4">
+                <h2 class="text-center">ADMIN LOGIN</h2>
+                <form action="/admin" method="post" class="form-row">
+                    <label for="email" class="form-group">Email address</label>
+                    <input type="email" name="email" class="form-control border-dark" required>
+                    <label for="password" class="form-group">Password</label>
+                    <input type="password" name="password" class="form-control border-dark" required>
+                    <div class="text-center py-3">
+                        <% if (messages.error) { %>
+                            <div class="alert alert-success">
+                                <%= messages.error %>
+                            </div>
+                        <% } %>
+                        <input type="submit" class="btn btn-outline-dark px-5">
+                        <!-- <br><a href="/forgotPwd">Forgot Password</a> -->
+                    </div>
+                </form>    
+                
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
